@@ -1,3 +1,17 @@
+# Installation
+```
+git clone
+npm install
+npm -g install web-ext
+```
+
+# Run
+```
+web-ext run
+```
+This will open a new browser window with the application loaded
+
+
 # browser-extension-template
 
 [link-webext-polyfill]: https://github.com/mozilla/webextension-polyfill
