@@ -3,6 +3,7 @@
 git clone
 npm install
 npm -g install web-ext
+npm run build
 ```
 
 # Run
