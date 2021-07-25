@@ -10,17 +10,25 @@ import {browser} from "webextension-polyfill-ts";
 		let paragraphs = Array.from(document.getElementsByTagName("p"));
 		let content = paragraphs.map(p => p.innerText);
 		console.log(content);
-		let newContent = adjustText(content, configuration);
-
-		for(let i=0; i < paragraphs.length; i++) {
-			paragraphs[i].innerText = newContent[i];
-			debugger
-		}
-
+		adjustText(content, newContent => {
+			for(let i=0; i < paragraphs.length; i++) {
+				paragraphs[i].innerText = newContent[i];
+				debugger
+			}
+		});
 	}
 
-	function adjustText(text: string[], configuration) {
-		return text.map(text => text.toUpperCase());
+	function adjustText(text: string[], changeFunction: (text: string[]) => void): void {
+		const socket = new WebSocket('ws://localhost:8080');
+
+		socket.addEventListener('open', function (event) {
+			socket.send(JSON.stringify(text));
+		});
+
+		socket.addEventListener('message', function (event) {
+			console.log('Message from server ', event.data);
+			changeFunction(JSON.parse(event.data));
+		});
 	}
 
 	modifyPage({simpliness: 50, shortness: 50});
