@@ -1,16 +1,16 @@
 // Don't forget to import this wherever you use it
-import browser from 'webextension-polyfill';
+import 'webextension-polyfill-ts';
 
-import optionsStorage from './options-storage.js';
+import optionsStorage from './options-storage';
 
 optionsStorage.syncForm('#options-form');
 
-const rangeInputs = [...document.querySelectorAll('input[type="range"][name^="color"]')];
-const numberInputs = [...document.querySelectorAll('input[type="number"][name^="color"]')];
+const rangeInputs = [...(document as any).querySelectorAll('input[type="range"][name^="color"]')];
+const numberInputs = [...(document as any).querySelectorAll('input[type="number"][name^="color"]')];
 const output = document.querySelector('.color-output');
 
 function updateColor() {
-	output.style.backgroundColor = `rgb(${rangeInputs[0].value}, ${rangeInputs[1].value}, ${rangeInputs[2].value})`;
+	(output as any).style.backgroundColor = `rgb(${rangeInputs[0].value}, ${rangeInputs[1].value}, ${rangeInputs[2].value})`;
 }
 
 function updateInputField(event) {

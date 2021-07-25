@@ -12,6 +12,11 @@ web-ext run
 This will open a new browser window with the application loaded
 
 
+# Acknowledgements
+
+Icon: https://icons.getbootstrap.com/icons/arrow-down-right-square/
+
+
 # browser-extension-template
 
 [link-webext-polyfill]: https://github.com/mozilla/webextension-polyfill

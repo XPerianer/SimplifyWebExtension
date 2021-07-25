@@ -11,6 +11,17 @@
 			"strict_min_version": "67.0"
 		}
 	},
+	"browser_action": {
+	  "default_icon": "../media/icon.png",
+	  "default_title": "Simplify",
+	  "default_popup": "popup/popup.html"
+	},
+	"content_scripts": [
+	  {
+		"matches": ["<all_urls>"],
+		"js": ["content_script.ts"]
+	  }
+	],
 	"icons": {
 		"128": "icon.png"
 	},
@@ -20,11 +31,5 @@
 	"options_ui": {
 		"chrome_style": true,
 		"page": "options.html"
-	},
-	"background": {
-		"persistent": false,
-		"scripts": [
-			"background.js"
-		]
 	}
 }

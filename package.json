@@ -31,7 +31,7 @@
 	},
 	"dependencies": {
 		"webext-options-sync": "^2.0.1",
-		"webextension-polyfill": "^0.7.0"
+		"webextension-polyfill-ts": "^0.26.0"
 	},
 	"devDependencies": {
 		"@parcel/config-webextension": "^2.0.0-nightly.2220",
