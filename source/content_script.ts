@@ -1,33 +1,37 @@
 import {browser} from "webextension-polyfill-ts";
 
+interface ISimplifyOptions {
+	simpliness: number; // [0, 100]
+	shortness: number; // [0, 100]
+}
+
 (function() {
 
 	console.log("Hello, here is SimplifyWebExtension");
 
-
-	function modifyPage(configuration){
-		console.log(configuration);
-		let paragraphs = Array.from(document.getElementsByTagName("p"));
-		let content = paragraphs.map(p => p.innerText);
-		console.log(content);
-		adjustText(content, newContent => {
-			for(let i=0; i < paragraphs.length; i++) {
-				paragraphs[i].innerText = newContent[i];
-				debugger
-			}
-		});
-	}
-
-	function adjustText(text: string[], changeFunction: (text: string[]) => void): void {
+	function adjustText(text: string[], options: ISimplifyOptions, changeFunction: (text: string[]) => void): void {
 		const socket = new WebSocket('ws://localhost:8080');
-
+		debugger
 		socket.addEventListener('open', function (event) {
-			socket.send(JSON.stringify(text));
+			socket.send(JSON.stringify({"text": text, "options": options}));
 		});
 
 		socket.addEventListener('message', function (event) {
 			console.log('Message from server ', event.data);
 			changeFunction(JSON.parse(event.data));
+		});
+	}
+
+	function modifyPage(configuration: ISimplifyOptions){
+		console.log(configuration);
+		let paragraphs = Array.from(document.getElementsByTagName("p"));
+		let content = paragraphs.map(p => p.innerText);
+		console.log(content);
+		adjustText(content, configuration, newContent => {
+			for(let i=0; i < paragraphs.length; i++) {
+				paragraphs[i].innerText = newContent[i];
+				// debugger
+			}
 		});
 	}
 
