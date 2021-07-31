@@ -4,6 +4,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="popup.css"/>
+	  <script src="popup.ts" type="module"></script>
   </head>
 
 <body>
@@ -11,12 +12,12 @@
 		<div class="simplify-inputs">
 			<label class="simplify-input">
 				<span>Simpliness</span>
-				<input type="range" min="0" max="100" name="short">
+				<input id="simpliness" type="range" min="0" max="100" name="short">
 				<input type="number" name="shorten" min="0" max="100">
 			</label>
 			<label class="simplify-input">
 				<span>Shortness</span>
-				<input type="range" min="0" max="100" name="simple">
+				<input id="shortness" type="range" min="0" max="100" name="simple">
 				<input type="number" name="simple" min="0" max="100">
 			</label>
 		</div>
@@ -24,7 +25,6 @@
   <div id="error-content" class="hidden">
     <p>Can't simplify this web page.</p><p>Try a different page.</p>
   </div>
-  <script src="popup.ts"></script>
 </body>
 
 </html>

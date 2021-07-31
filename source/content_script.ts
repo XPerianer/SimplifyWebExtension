@@ -1,9 +1,11 @@
 import {browser} from "webextension-polyfill-ts";
 
-interface ISimplifyOptions {
+export interface ISimplifyOptions {
 	simpliness: number; // [0, 100]
 	shortness: number; // [0, 100]
 }
+
+let originalParagraphTexts = Array.from(document.getElementsByTagName("p")).map(p => p.innerText);
 
 (function() {
 
@@ -25,9 +27,7 @@ interface ISimplifyOptions {
 	function modifyPage(configuration: ISimplifyOptions){
 		console.log(configuration);
 		let paragraphs = Array.from(document.getElementsByTagName("p"));
-		let content = paragraphs.map(p => p.innerText);
-		console.log(content);
-		adjustText(content, configuration, newContent => {
+		adjustText(originalParagraphTexts, configuration, newContent => {
 			for(let i=0; i < paragraphs.length; i++) {
 				paragraphs[i].innerText = newContent[i];
 				// debugger
@@ -39,7 +39,6 @@ interface ISimplifyOptions {
 
 	/**
 	 * Listen for messages from the background script.
-	 * Call "insertBeast()" or "removeExistingBeasts()".
 	 */
 	browser.runtime.onMessage.addListener((message) => {
 		if (message.command === "simplify") {
