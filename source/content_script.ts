@@ -20,7 +20,11 @@ let originalParagraphTexts = Array.from(document.getElementsByTagName("p")).map(
 
 		socket.addEventListener('message', function (event) {
 			console.log('Message from server ', event.data);
-			changeFunction(JSON.parse(event.data));
+			const response = JSON.parse(event.data);
+			changeFunction(response.text);
+			// doesn't work, need to use local storage or sth to remember state between invocations
+			// (document.getElementById("simpliness") as any).value = response.options.simpliness;
+			// (document.getElementById("shortness") as any).value = response.options.shortness;
 		});
 	}
 
@@ -35,7 +39,7 @@ let originalParagraphTexts = Array.from(document.getElementsByTagName("p")).map(
 		});
 	}
 
-	modifyPage({simpliness: 50, shortness: 50});
+	modifyPage({simpliness: 100, shortness: 100});
 
 	/**
 	 * Listen for messages from the background script.
